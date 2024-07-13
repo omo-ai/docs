@@ -52,11 +52,30 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "API Reference",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/process-gdrive-files",
+        "api-reference/endpoint/register-user",
+        "api-reference/endpoint/login-for-access-token",
+        "api-reference/endpoint/oauth-proxy",
+        "api-reference/endpoint/save-atlassian-config",
+        "api-reference/endpoint/get-confluence-documents",
+        "api-reference/endpoint/install",
+        "api-reference/endpoint/oauth-redirect",
+        "api-reference/endpoint/endpoint",
+        "api-reference/endpoint/answer-slack",
+        "api-reference/endpoint/answer-web",
+        "api-reference/endpoint/me",
+        "api-reference/endpoint/get-user-context",
+        "api-reference/endpoint/register-user-1",
+        "api-reference/endpoint/get-connector-status",
+        "api-reference/endpoint/get-chat-for-user",
+        "api-reference/endpoint/get-chat-by-id",
+        "api-reference/endpoint/put-chat",
+        "api-reference/endpoint/get-user-chats",
+        "api-reference/endpoint/get-connector-by-id",
+        "api-reference/endpoint/get-notion-pages",
+        "api-reference/endpoint/root"
       ]
     }
   ],

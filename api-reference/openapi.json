@@ -1,72 +1,30 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "FastAPI",
+    "version": "0.1.0"
   },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/v2/googledrive/files": {
+      "post": {
+        "summary": "Process Gdrive Files",
+        "operationId": "process_gdrive_files_v2_googledrive_files_post",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+              "type": "string",
+              "title": "X-Google-Authorization"
+            },
+            "name": "x-google-authorization",
+            "in": "header"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
         "requestBody": {
-          "description": "Plant to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/Body_process_gdrive_files_v2_googledrive_files_post"
               }
             }
           },
@@ -74,21 +32,21 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -96,32 +54,639 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/v1/user/register": {
+      "post": {
+        "summary": "Register User",
+        "operationId": "register_user_v1_user_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistration"
+              }
             }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
           },
-          "400": {
-            "description": "unexpected error",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/login": {
+      "post": {
+        "summary": "Login For Access Token",
+        "operationId": "login_for_access_token_v1_user_login_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_login_for_access_token_v1_user_login_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/oauth-proxy/token": {
+      "post": {
+        "summary": "Oauth Proxy",
+        "operationId": "oauth_proxy_v1_oauth_proxy_token_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OAuthProxyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/confluence/config": {
+      "post": {
+        "summary": "Save Atlassian Config",
+        "operationId": "save_atlassian_config_v1_confluence_config_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtlassianConfigModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/confluence/documents": {
+      "get": {
+        "summary": "Get Confluence Documents",
+        "operationId": "get_confluence_documents_v1_confluence_documents_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/slack/install": {
+      "get": {
+        "summary": "Install",
+        "description": "Visit $API_HOST/slack/install in a browser to directly install slack",
+        "operationId": "install_slack_install_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/slack/oauth_redirect": {
+      "get": {
+        "summary": "Oauth Redirect",
+        "operationId": "oauth_redirect_slack_oauth_redirect_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/slack/message": {
+      "post": {
+        "summary": "Endpoint",
+        "operationId": "endpoint_v1_slack_message_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/slack/answer": {
+      "post": {
+        "summary": "Answer Slack",
+        "operationId": "answer_slack_v1_slack_answer_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SlackMessagePayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chat/": {
+      "post": {
+        "summary": "Answer Web",
+        "operationId": "answer_web_v1_chat__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageUserContext"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/whoami": {
+      "get": {
+        "summary": "Me",
+        "operationId": "me_v1_whoami_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me": {
+      "get": {
+        "summary": "Get User Context",
+        "operationId": "get_user_context_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get User Context V1 Me Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/users/register": {
+      "post": {
+        "summary": "Register User",
+        "operationId": "register_user_v2_users_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAccountRegistration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Register User V2 Users Register Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/connectors": {
+      "get": {
+        "summary": "Get Connector Status",
+        "operationId": "get_connector_status_v1_users_connectors_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Connector Status V1 Users Connectors Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{user_id}/chats/": {
+      "get": {
+        "summary": "Get Chat For User",
+        "operationId": "get_chat_for_user_v1_users__user_id__chats__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            },
+            "name": "user_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chats/{chat_id}": {
+      "get": {
+        "summary": "Get Chat By Id",
+        "operationId": "get_chat_by_id_v1_chats__chat_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            },
+            "name": "chat_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Put Chat",
+        "operationId": "put_chat_v1_chats__chat_id__put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chats/": {
+      "get": {
+        "summary": "Get User Chats",
+        "operationId": "get_user_chats_v1_chats__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChatHistoryResponseModel"
+                  },
+                  "type": "array",
+                  "title": "Response Get User Chats V1 Chats  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/{connector_slug}/{connector_id}": {
+      "get": {
+        "summary": "Get Connector By Id",
+        "description": "Get a connector by its slug and ID.\n\nArgs:\n    connector_slug (str): The slug of the connector.\n    connector_id (str): The ID of the connector.\n    db (Session, optional): The database session. Defaults to Depends(get_db).\n    user (User, optional): The current active user. Defaults to Depends(get_current_active_user).\n\nReturns:\n    dict: The details of the connector.\n\nRaises:\n    HTTPException: If the connector is not found.",
+        "operationId": "get_connector_by_id_v1_connectors__connector_slug___connector_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connector Slug"
+            },
+            "name": "connector_slug",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connector Id"
+            },
+            "name": "connector_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/notion/pages": {
+      "post": {
+        "summary": "Get Notion Pages",
+        "description": "Retrieves Notion pages based on the provided authorization token.\n\nArgs:\n    x_notion_authorization (str): The authorization token for accessing Notion API.\n\nReturns:\n    dict: A dictionary containing the response from the Notion API.",
+        "operationId": "get_notion_pages_v1_notion_pages_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "X-Notion-Authorization"
+            },
+            "name": "x-notion-authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Notion Pages V1 Notion Pages Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
                 }
               }
             }
@@ -132,63 +697,684 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "AtlassianConfigModel": {
+        "properties": {
+          "atlassianApiToken": {
+            "type": "string",
+            "title": "Atlassianapitoken"
+          },
+          "atlassianUsername": {
+            "type": "string",
+            "title": "Atlassianusername"
+          },
+          "confluenceSpaceKey": {
+            "type": "string",
+            "title": "Confluencespacekey"
+          }
+        },
         "type": "object",
+        "required": [
+          "atlassianApiToken",
+          "atlassianUsername",
+          "confluenceSpaceKey"
+        ],
+        "title": "AtlassianConfigModel"
+      },
+      "Body_login_for_access_token_v1_user_login_post": {
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "pattern": "password",
+            "title": "Grant Type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": ""
+          },
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Body_login_for_access_token_v1_user_login_post"
+      },
+      "Body_process_gdrive_files_v2_googledrive_files_post": {
+        "properties": {
+          "files": {
+            "items": {
+              "$ref": "#/components/schemas/GoogleDriveObject"
+            },
+            "type": "array",
+            "title": "Files"
+          },
+          "user_context": {
+            "$ref": "#/components/schemas/UserContext"
+          }
+        },
+        "type": "object",
+        "required": [
+          "files",
+          "user_context"
+        ],
+        "title": "Body_process_gdrive_files_v2_googledrive_files_post"
+      },
+      "ChatHistoryResponseModel": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "chat_id",
+          "title",
+          "updated_at"
+        ],
+        "title": "ChatHistoryResponseModel"
+      },
+      "ChatPayload": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "type": "array",
+            "title": "Messages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "messages"
+        ],
+        "title": "ChatPayload"
+      },
+      "ConnectorContext": {
         "properties": {
           "name": {
-            "description": "The name of the plant",
-            "type": "string"
+            "type": "string",
+            "title": "Name"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "id": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Id"
           }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+        },
         "type": "object",
+        "required": [
+          "name",
+          "id"
+        ],
+        "title": "ConnectorContext"
+      },
+      "GoogleDriveObject": {
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "id": {
+            "type": "string",
+            "title": "Id"
           },
-          "message": {
-            "type": "string"
+          "serviceId": {
+            "type": "string",
+            "title": "Serviceid"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "lastEditedUtc": {
+            "type": "integer",
+            "title": "Lasteditedutc"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "sizeBytes": {
+            "type": "integer",
+            "title": "Sizebytes"
+          },
+          "lastSyncedAt": {
+            "type": "string",
+            "format": "date",
+            "title": "Lastsyncedat"
           }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "serviceId",
+          "name",
+          "description",
+          "type",
+          "lastEditedUtc",
+          "url",
+          "sizeBytes"
+        ],
+        "title": "GoogleDriveObject"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Message": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ],
+        "title": "Message"
+      },
+      "MessageUserContext": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          },
+          "user_context": {
+            "$ref": "#/components/schemas/UserContext"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role",
+          "content",
+          "user_context"
+        ],
+        "title": "MessageUserContext"
+      },
+      "OAuthProxyHeaders": {
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "title": "Content Type"
+          },
+          "accept": {
+            "type": "string",
+            "title": "Accept"
+          },
+          "authorization": {
+            "type": "string",
+            "title": "Authorization"
+          },
+          "x_connector": {
+            "type": "string",
+            "title": "X Connector"
+          }
+        },
+        "type": "object",
+        "required": [
+          "content_type"
+        ],
+        "title": "OAuthProxyHeaders"
+      },
+      "OAuthProxyRequest": {
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "title": "Endpoint"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "headers": {
+            "$ref": "#/components/schemas/OAuthProxyHeaders"
+          }
+        },
+        "type": "object",
+        "required": [
+          "endpoint",
+          "headers"
+        ],
+        "title": "OAuthProxyRequest"
+      },
+      "SlackMessageEventPayload": {
+        "properties": {
+          "client_msg_id": {
+            "type": "string",
+            "title": "Client Msg Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "user": {
+            "type": "string",
+            "title": "User"
+          },
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "team": {
+            "type": "string",
+            "title": "Team"
+          },
+          "channel": {
+            "type": "string",
+            "title": "Channel"
+          },
+          "event_ts": {
+            "type": "string",
+            "title": "Event Ts"
+          },
+          "channel_type": {
+            "type": "string",
+            "title": "Channel Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_msg_id",
+          "type",
+          "text",
+          "user",
+          "ts",
+          "team",
+          "channel",
+          "event_ts"
+        ],
+        "title": "SlackMessageEventPayload"
+      },
+      "SlackMessagePayload": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          },
+          "context_team_id": {
+            "type": "string",
+            "title": "Context Team Id"
+          },
+          "context_enterprise_id": {
+            "type": "string",
+            "title": "Context Enterprise Id"
+          },
+          "api_app_id": {
+            "type": "string",
+            "title": "Api App Id"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SlackMessageEventPayload"
+          },
+          "event_id": {
+            "type": "string",
+            "title": "Event Id"
+          },
+          "event_time": {
+            "type": "string",
+            "title": "Event Time"
+          },
+          "event_context": {
+            "type": "string",
+            "title": "Event Context"
+          },
+          "is_ext_shared_channel": {
+            "type": "boolean",
+            "title": "Is Ext Shared Channel"
+          },
+          "challenge": {
+            "type": "string",
+            "title": "Challenge"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "SlackMessagePayload"
+      },
+      "Token": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "token_type",
+          "email"
+        ],
+        "title": "Token"
+      },
+      "UserAccountRegistration": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "provider_account_id": {
+            "type": "string",
+            "title": "Provider Account Id"
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          },
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "expires_at": {
+            "type": "integer",
+            "title": "Expires At"
+          },
+          "id_token": {
+            "type": "string",
+            "title": "Id Token"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope"
+          },
+          "session_state": {
+            "type": "string",
+            "title": "Session State"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "slackCode": {
+            "type": "string",
+            "title": "Slackcode"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "provider",
+          "provider_account_id",
+          "email",
+          "name"
+        ],
+        "title": "UserAccountRegistration"
+      },
+      "UserContext": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "team_id": {
+            "type": "integer",
+            "title": "Team Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "connectors": {
+            "items": {
+              "$ref": "#/components/schemas/ConnectorContext"
+            },
+            "type": "array",
+            "title": "Connectors"
+          },
+          "vector_store": {
+            "$ref": "#/components/schemas/VectorStoreContext"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "updated_at",
+          "is_active",
+          "team_id",
+          "created_at",
+          "connectors",
+          "vector_store"
+        ],
+        "title": "UserContext"
+      },
+      "UserRegistration": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "slackCode": {
+            "type": "string",
+            "title": "Slackcode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "UserRegistration"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VectorStoreContext": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "index_name": {
+            "type": "string",
+            "title": "Index Name"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "namespaces": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Namespaces"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "index_name",
+          "environment",
+          "namespaces",
+          "created_at",
+          "updated_at",
+          "provider"
+        ],
+        "title": "VectorStoreContext"
       }
     }
   }
