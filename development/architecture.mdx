@@ -1,0 +1,36 @@
+---
+title: 'Architecture'
+description: "High level design of Omo's components"
+icon: 'code'
+---
+
+## High level flows
+
+<img
+  className="block dark:hidden"
+  src="/images/data-flow.png"
+  alt="Data Flow Light"
+/>
+
+<img
+  className="hidden dark:block"
+  src="/images/data-flow-dark.png"
+  alt="Data Flow Dark"
+/>
+
+## Technologies
+
+Omo was built with the following technologies.
+
+* NextJS
+* FastAPI
+* Redis
+* Celery
+* PostgresQL
+* AWS
+* Pinecone vector store
+* GPT-4o
+
+Although one of our goals is to be cloud-agnostic and vector-store agnostic,
+we initially targeted AWS and Pinecone. We would eventually like to support
+GCP, Azure, and other vector stores.
