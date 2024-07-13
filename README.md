@@ -1,12 +1,7 @@
-# Mintlify Starter Kit
+# Omo documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
-
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+Our docs and API reference are hosted at [https://docs.helloomo.ai](https://helloomo.ai),
+which is powered by Mintlify.
 
 ### Development
 
