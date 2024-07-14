@@ -40,12 +40,6 @@
       ]
     },
     {
-      "group": "Development",
-      "pages": [
-        "development/architecture"
-      ]
-    },
-    {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
@@ -54,67 +48,73 @@
     {
       "group": "Google Drive",
       "pages": [
-        "api-reference/endpoint/process-gdrive-files"
-      ]
-    },
-    {
-      "group": "User",
-      "pages": [
-        "api-reference/endpoint/me",
-        "api-reference/endpoint/get-user-context",
-        "api-reference/endpoint/register-user",
-        "api-reference/endpoint/register-user-1",
-        "api-reference/endpoint/login-for-access-token"
-      ]
-    },
-    {
-      "group": "Atlassian",
-      "pages": [
-        "api-reference/endpoint/save-atlassian-config",
-        "api-reference/endpoint/get-confluence-documents"
-      ]
-    },
-    {
-      "group": "Notion",
-      "pages": [
-        "api-reference/endpoint/get-notion-pages"
-      ]
-    },
-    {
-      "group": "Chat",
-      "pages": [
-        "api-reference/endpoint/get-chat-by-id",
-        "api-reference/endpoint/put-chat",
-        "api-reference/endpoint/get-user-chats",
-        "api-reference/endpoint/get-chat-for-user"
-      ]
-    },
-    {
-      "group": "Connector",
-      "pages": [
-        "api-reference/endpoint/get-connector-status",
-        "api-reference/endpoint/get-connector-by-id"
-      ]
-    },
-    {
-      "group": "Slack Client",
-      "pages": [
-        "api-reference/endpoint/oauth-redirect",
-        "api-reference/endpoint/install",
-        "api-reference/endpoint/endpoint"
+        "api-reference/endpoint/google_drive/index-google-drive-files"
       ]
     },
     {
       "group": "Auth",
       "pages": [
-        "api-reference/endpoint/oauth-proxy"
+        "api-reference/endpoint/auth/register-user",
+        "api-reference/endpoint/auth/login-for-access-token",
+        "api-reference/endpoint/auth/oauth-proxy"
       ]
     },
     {
-      "group": "Question & Answering",
+      "group": "Confluence",
       "pages": [
-        "api-reference/endpoint/answer-slack",
-        "api-reference/endpoint/answer-web"
+        "api-reference/endpoint/confluence/save-atlassian-config",
+        "api-reference/endpoint/confluence/get-documents"
+      ]
+    },
+    {
+      "group": "Slack",
+      "pages": [
+        "api-reference/endpoint/slack/install",
+        "api-reference/endpoint/slack/oauth-redirect",
+        "api-reference/endpoint/slack/endpoint"
+      ]
+    },
+    {
+      "group": "Question and Answering",
+      "pages": [
+        "api-reference/endpoint/question_and_answering/answer-slack",
+        "api-reference/endpoint/question_and_answering/answer-web"
+      ]
+    },
+    {
+      "group": "User",
+      "pages": [
+        "api-reference/endpoint/user/whoami",
+        "api-reference/endpoint/user/me",
+        "api-reference/endpoint/user/register-user",
+        "api-reference/endpoint/user/get-connector-status",
+        "api-reference/endpoint/user/get-chat-history"
+      ]
+    },
+    {
+      "group": "Chat",
+      "pages": [
+        "api-reference/endpoint/chat/get-chat-by-id",
+        "api-reference/endpoint/chat/put-chat",
+        "api-reference/endpoint/chat/get-user-chats"
+      ]
+    },
+    {
+      "group": "Connector",
+      "pages": [
+        "api-reference/endpoint/connector/get-connector-by-id"
+      ]
+    },
+    {
+      "group": "Notion",
+      "pages": [
+        "api-reference/endpoint/notion/get-notion-pages"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/endpoint/root"
       ]
     }
   ],

@@ -7,14 +7,20 @@
   "paths": {
     "/v2/googledrive/files": {
       "post": {
-        "summary": "Process Gdrive Files",
-        "operationId": "process_gdrive_files_v2_googledrive_files_post",
+        "tags": [
+          "google_drive"
+        ],
+        "summary": "Index Google Drive Files",
+        "description": "Indexes Google Drive files by passing them to Celery for processing",
+        "operationId": "index_google_drive_files_v2_googledrive_files_post",
         "parameters": [
           {
+            "description": "Google access token. Obtained by the client             performing the OAuth flow with Google.",
             "required": true,
             "schema": {
               "type": "string",
-              "title": "X-Google-Authorization"
+              "title": "X-Google-Authorization",
+              "description": "Google access token. Obtained by the client             performing the OAuth flow with Google."
             },
             "name": "x-google-authorization",
             "in": "header"
@@ -24,7 +30,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Body_process_gdrive_files_v2_googledrive_files_post"
+                "$ref": "#/components/schemas/Body_index_google_drive_files_v2_googledrive_files_post"
               }
             }
           },
@@ -36,7 +42,8 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  "type": "object",
+                  "title": "Response Index Google Drive Files V2 Googledrive Files Post"
                 }
               }
             }
@@ -56,7 +63,11 @@
     },
     "/v1/user/register": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "summary": "Register User",
+        "description": "Create a user with a registration form",
         "operationId": "register_user_v1_user_register_post",
         "requestBody": {
           "content": {
@@ -89,12 +100,17 @@
               }
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/user/login": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "summary": "Login For Access Token",
+        "description": "Login a user with username and password and generate an access token",
         "operationId": "login_for_access_token_v1_user_login_post",
         "requestBody": {
           "content": {
@@ -127,12 +143,17 @@
               }
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/oauth-proxy/token": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "summary": "Oauth Proxy",
+        "description": "This endpoint should be used to make proxy requests on behalf of a client\nto a third party API in order to obtain an access token.\nFor example, the Notion API doesn't allow browsers to obtain access\ntokens, so the client (browser) makes a call to this endpoint,\nwhich will obtain the access token.",
         "operationId": "oauth_proxy_v1_oauth_proxy_token_post",
         "requestBody": {
           "content": {
@@ -150,7 +171,8 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  "type": "object",
+                  "title": "Response Oauth Proxy V1 Oauth Proxy Token Post"
                 }
               }
             }
@@ -170,6 +192,9 @@
     },
     "/v1/confluence/config": {
       "post": {
+        "tags": [
+          "confluence"
+        ],
         "summary": "Save Atlassian Config",
         "operationId": "save_atlassian_config_v1_confluence_config_post",
         "requestBody": {
@@ -208,8 +233,11 @@
     },
     "/v1/confluence/documents": {
       "get": {
-        "summary": "Get Confluence Documents",
-        "operationId": "get_confluence_documents_v1_confluence_documents_get",
+        "tags": [
+          "confluence"
+        ],
+        "summary": "Get Documents",
+        "operationId": "get_documents_v1_confluence_documents_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -226,6 +254,9 @@
     },
     "/slack/install": {
       "get": {
+        "tags": [
+          "slack"
+        ],
         "summary": "Install",
         "description": "Visit $API_HOST/slack/install in a browser to directly install slack",
         "operationId": "install_slack_install_get",
@@ -245,6 +276,9 @@
     },
     "/slack/oauth_redirect": {
       "get": {
+        "tags": [
+          "slack"
+        ],
         "summary": "Oauth Redirect",
         "operationId": "oauth_redirect_slack_oauth_redirect_get",
         "responses": {
@@ -263,6 +297,9 @@
     },
     "/v1/slack/message": {
       "post": {
+        "tags": [
+          "slack"
+        ],
         "summary": "Endpoint",
         "operationId": "endpoint_v1_slack_message_post",
         "responses": {
@@ -281,6 +318,9 @@
     },
     "/v1/slack/answer": {
       "post": {
+        "tags": [
+          "question_and_answering"
+        ],
         "summary": "Answer Slack",
         "operationId": "answer_slack_v1_slack_answer_post",
         "requestBody": {
@@ -319,7 +359,11 @@
     },
     "/v1/chat/": {
       "post": {
+        "tags": [
+          "question_and_answering"
+        ],
         "summary": "Answer Web",
+        "description": "Answer a user question or prompt and stream the response",
         "operationId": "answer_web_v1_chat__post",
         "requestBody": {
           "content": {
@@ -357,8 +401,12 @@
     },
     "/v1/whoami": {
       "get": {
-        "summary": "Me",
-        "operationId": "me_v1_whoami_get",
+        "tags": [
+          "user"
+        ],
+        "summary": "Whoami",
+        "description": "Return the authenticated user's email address",
+        "operationId": "whoami_v1_whoami_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -375,8 +423,12 @@
     },
     "/v1/me": {
       "get": {
-        "summary": "Get User Context",
-        "operationId": "get_user_context_v1_me_get",
+        "tags": [
+          "user"
+        ],
+        "summary": "Me",
+        "description": "Return the authenticated user's context",
+        "operationId": "me_v1_me_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -384,7 +436,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "title": "Response Get User Context V1 Me Get"
+                  "title": "Response Me V1 Me Get"
                 }
               }
             }
@@ -394,7 +446,11 @@
     },
     "/v2/users/register": {
       "post": {
+        "tags": [
+          "user"
+        ],
         "summary": "Register User",
+        "description": "Create a User. The endpoint also creates an Account, Team, and vector store\nconfigs associated with the user.",
         "operationId": "register_user_v2_users_register_post",
         "requestBody": {
           "content": {
@@ -433,7 +489,11 @@
     },
     "/v1/users/connectors": {
       "get": {
+        "tags": [
+          "user"
+        ],
         "summary": "Get Connector Status",
+        "description": "Get the connector statuses for a user",
         "operationId": "get_connector_status_v1_users_connectors_get",
         "responses": {
           "200": {
@@ -452,8 +512,12 @@
     },
     "/v1/users/{user_id}/chats/": {
       "get": {
-        "summary": "Get Chat For User",
-        "operationId": "get_chat_for_user_v1_users__user_id__chats__get",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get Chat History",
+        "description": "Get the chats history for a user",
+        "operationId": "get_chat_history_v1_users__user_id__chats__get",
         "parameters": [
           {
             "required": true,
@@ -491,7 +555,11 @@
     },
     "/v1/chats/{chat_id}": {
       "get": {
+        "tags": [
+          "chat"
+        ],
         "summary": "Get Chat By Id",
+        "description": "Get a user's chat given a chat ID",
         "operationId": "get_chat_by_id_v1_chats__chat_id__get",
         "parameters": [
           {
@@ -528,7 +596,11 @@
         }
       },
       "put": {
+        "tags": [
+          "chat"
+        ],
         "summary": "Put Chat",
+        "description": "Save s user's chat into the chat history.",
         "operationId": "put_chat_v1_chats__chat_id__put",
         "requestBody": {
           "content": {
@@ -566,7 +638,11 @@
     },
     "/v1/chats/": {
       "get": {
+        "tags": [
+          "chat"
+        ],
         "summary": "Get User Chats",
+        "description": "Get the authenticated user's chat history",
         "operationId": "get_user_chats_v1_chats__get",
         "responses": {
           "200": {
@@ -588,6 +664,9 @@
     },
     "/v1/connectors/{connector_slug}/{connector_id}": {
       "get": {
+        "tags": [
+          "connector"
+        ],
         "summary": "Get Connector By Id",
         "description": "Get a connector by its slug and ID.\n\nArgs:\n    connector_slug (str): The slug of the connector.\n    connector_id (str): The ID of the connector.\n    db (Session, optional): The database session. Defaults to Depends(get_db).\n    user (User, optional): The current active user. Defaults to Depends(get_current_active_user).\n\nReturns:\n    dict: The details of the connector.\n\nRaises:\n    HTTPException: If the connector is not found.",
         "operationId": "get_connector_by_id_v1_connectors__connector_slug___connector_id__get",
@@ -637,6 +716,9 @@
     },
     "/v1/notion/pages": {
       "post": {
+        "tags": [
+          "notion"
+        ],
         "summary": "Get Notion Pages",
         "description": "Retrieves Notion pages based on the provided authorization token.\n\nArgs:\n    x_notion_authorization (str): The authorization token for accessing Notion API.\n\nReturns:\n    dict: A dictionary containing the response from the Notion API.",
         "operationId": "get_notion_pages_v1_notion_pages_post",
@@ -720,6 +802,26 @@
         ],
         "title": "AtlassianConfigModel"
       },
+      "Body_index_google_drive_files_v2_googledrive_files_post": {
+        "properties": {
+          "files": {
+            "items": {
+              "$ref": "#/components/schemas/GoogleDriveObject"
+            },
+            "type": "array",
+            "title": "Files"
+          },
+          "user_context": {
+            "$ref": "#/components/schemas/UserContext"
+          }
+        },
+        "type": "object",
+        "required": [
+          "files",
+          "user_context"
+        ],
+        "title": "Body_index_google_drive_files_v2_googledrive_files_post"
+      },
       "Body_login_for_access_token_v1_user_login_post": {
         "properties": {
           "grant_type": {
@@ -755,26 +857,6 @@
           "password"
         ],
         "title": "Body_login_for_access_token_v1_user_login_post"
-      },
-      "Body_process_gdrive_files_v2_googledrive_files_post": {
-        "properties": {
-          "files": {
-            "items": {
-              "$ref": "#/components/schemas/GoogleDriveObject"
-            },
-            "type": "array",
-            "title": "Files"
-          },
-          "user_context": {
-            "$ref": "#/components/schemas/UserContext"
-          }
-        },
-        "type": "object",
-        "required": [
-          "files",
-          "user_context"
-        ],
-        "title": "Body_process_gdrive_files_v2_googledrive_files_post"
       },
       "ChatHistoryResponseModel": {
         "properties": {
