@@ -1,6 +1,6 @@
 ---
 title: 'Quickstart'
-description: 'Get up and running'
+description: 'Get up and running on your infrastructure'
 ---
 
 ## Setup your local environment
@@ -34,14 +34,17 @@ decrypt values, and if anyone else gains access to it they can decrypt values.</
 
 <Info>There are utilities to use AWS secrets manager instead of the database.</Info>
 
-4. Starting the UI and API
+4. Starting the UI, API, and required infrastructure
 
-Use docker compose to start the environment locally:
+Use `docker compose` to start the environment locally:
 
 ```sh
 ENV=dev ENV_NS=example docker compose up
 ```
 
+Visit `http://localhost:3000` to load the Omo UI.
+
+<Info>
 The `ENV_NS` is an optional variable. If specified, it should reference a folder name under `envs/`. For example, `ENV_NS=example` will include additional environment variabes under `envs/example/.env` in addition to `.env.development` in the project root. 
 
 It's helpful if you want to test different values of environment variables without constantly
@@ -50,3 +53,5 @@ changing the value.
 For example, if you want to test different values for 2 teams, you can create `envs/team1/.env` and `envs/team2/.env`, then set `ENV_NS=team1` or `ENV_NS=team2`.
 
 You can check the `env_file` attribute in `docker-compose.yaml` to see how `ENV_NS` is used. 
+</Info>
+

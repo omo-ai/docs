@@ -40,6 +40,12 @@
       ]
     },
     {
+      "group": "Development",
+      "pages": [
+        "development/architecture"
+      ]
+    },
+    {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
