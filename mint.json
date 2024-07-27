@@ -32,97 +32,96 @@
     }
   ],
   "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart"
-      ]
-    },
-    {
-      "group": "Development",
-      "pages": [
-        "development/architecture"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Google Drive",
-      "pages": [
-        "api-reference/endpoint/google_drive/index-google-drive-files"
-      ]
-    },
-    {
-      "group": "Auth",
-      "pages": [
-        "api-reference/endpoint/auth/register-user",
-        "api-reference/endpoint/auth/login-for-access-token",
-        "api-reference/endpoint/auth/oauth-proxy"
-      ]
-    },
-    {
-      "group": "Confluence",
-      "pages": [
-        "api-reference/endpoint/confluence/save-atlassian-config",
-        "api-reference/endpoint/confluence/get-documents"
-      ]
-    },
-    {
-      "group": "Slack",
-      "pages": [
-        "api-reference/endpoint/slack/install",
-        "api-reference/endpoint/slack/oauth-redirect",
-        "api-reference/endpoint/slack/endpoint"
-      ]
-    },
-    {
-      "group": "Question and Answering",
-      "pages": [
-        "api-reference/endpoint/question_and_answering/answer-slack",
-        "api-reference/endpoint/question_and_answering/answer-web"
-      ]
-    },
-    {
-      "group": "User",
-      "pages": [
-        "api-reference/endpoint/user/whoami",
-        "api-reference/endpoint/user/me",
-        "api-reference/endpoint/user/register-user",
-        "api-reference/endpoint/user/get-connector-status",
-        "api-reference/endpoint/user/get-chat-history"
-      ]
-    },
-    {
-      "group": "Chat",
-      "pages": [
-        "api-reference/endpoint/chat/get-chat-by-id",
-        "api-reference/endpoint/chat/put-chat",
-        "api-reference/endpoint/chat/get-user-chats"
-      ]
-    },
-    {
-      "group": "Connector",
-      "pages": [
-        "api-reference/endpoint/connector/get-connector-by-id"
-      ]
-    },
-    {
-      "group": "Notion",
-      "pages": [
-        "api-reference/endpoint/notion/get-notion-pages"
-      ]
-    },
-    {
-      "group": "API Reference",
-      "pages": [
-        "api-reference/endpoint/root"
-      ]
-    }
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Development",
+        "pages": [
+          "development/architecture"
+        ]
+      },
+      {
+        "group": "API Documentation",
+        "pages": [
+          "api-reference/introduction"
+        ]
+      },
+      {
+        "group": "google_drive",
+        "pages": [
+          "api-reference/endpoints/google_drive/index-google-drive-files"
+        ]
+      },
+      {
+        "group": "auth",
+        "pages": [
+          "api-reference/endpoints/auth/register-user",
+          "api-reference/endpoints/auth/login-for-access-token",
+          "api-reference/endpoints/auth/oauth-proxy"
+        ]
+      },
+      {
+        "group": "confluence",
+        "pages": [
+          "api-reference/endpoints/confluence/save-atlassian-config",
+          "api-reference/endpoints/confluence/get-documents"
+        ]
+      },
+      {
+        "group": "slack",
+        "pages": [
+          "api-reference/endpoints/slack/install",
+          "api-reference/endpoints/slack/oauth-redirect",
+          "api-reference/endpoints/slack/endpoint"
+        ]
+      },
+      {
+        "group": "question_and_answering",
+        "pages": [
+          "api-reference/endpoints/question_and_answering/answer-slack",
+          "api-reference/endpoints/question_and_answering/answer-web"
+        ]
+      },
+      {
+        "group": "user",
+        "pages": [
+          "api-reference/endpoints/user/whoami",
+          "api-reference/endpoints/user/me",
+          "api-reference/endpoints/user/register-user",
+          "api-reference/endpoints/user/get-connector-status"
+        ]
+      },
+      {
+        "group": "chat",
+        "pages": [
+          "api-reference/endpoints/chat/by-id",
+          "api-reference/endpoints/chat/put-chat",
+          "api-reference/endpoints/chat/get-user-chats"
+        ]
+      },
+      {
+        "group": "connector",
+        "pages": [
+          "api-reference/endpoints/connector/get-connector-by-id"
+        ]
+      },
+      {
+        "group": "notion",
+        "pages": [
+          "api-reference/endpoints/notion/get-notion-pages"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/endpoints/root"
+        ]
+      }
   ],
   "footerSocials": {
     "github": "https://github.com/omo-ai",
