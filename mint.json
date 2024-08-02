@@ -17,8 +17,8 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:founders@helloomo.ai"
+      "name": "Github",
+      "url": "https://github.com/omo-ai/omo"
     }
   ],
   "topbarCtaButton": {
